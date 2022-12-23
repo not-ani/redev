@@ -39,6 +39,28 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+model Course { 
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    title     String
+    description String
+    image     String
+    lessons   Lesson[]
+}
+
+model Lesson {
+    id        String   @id @default(cuid()) @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    title     String
+    body      String
+    course    Course   @relation(fields: [courseId], references: [id])
+    courseId  String
+    videoUrl String 
+    markdownFileUrl String
+    file String
+}
 
 model Session {
   id           String   @id @default(cuid())
